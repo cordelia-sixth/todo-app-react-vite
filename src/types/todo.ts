@@ -1,11 +1,11 @@
 // Todo型
-declare type Todo = {
+export type Todo = {
   /** todoのID */
   readonly id: number;
   /** todoの内容 */
-  value: string;
+  title: string;
   /** 完了、未完了フラグ */
-  checked: boolean;
+  completed: boolean;
   /** 削除フラグ */
-  removed: boolean;
+  deleted: boolean;
 };
