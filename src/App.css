@@ -1,42 +1,63 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  --color-primary: #99ccff;
+  --color-secondary: white;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+* {
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.todo-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.card {
-  padding: 2em;
+.my-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 15px;
 }
 
-.read-the-docs {
-  color: #888;
+input[type="radio"] {
+  display: none;
+}
+
+/* 常に表示する円 */
+.radio-mark {
+  position: relative;
+  display: block;
+  height: 16px;
+  width: 16px;
+  border: solid 1px rgb(135, 135, 135);
+  border-radius: 50%;
+}
+
+.radio-mark::after {
+  content: "";
+  position: absolute;
+  background: rgb(212, 93, 153);
+  border-radius: 50%;
+  inset: 3px;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+.my-radio input:checked + .radio-mark::after {
+  opacity: 1;
+}
+
+.my-radio:has(input:checked) {
+  background: rgba(132, 132, 132, 0.1);
+  border-radius: 18px;
 }
