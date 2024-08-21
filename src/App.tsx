@@ -36,8 +36,16 @@ const App = () => {
       </div>
 
       <form action="">
-        <input type="text" />
-        <button type="submit">Create</button>
+        <input
+          type="text"
+          placeholder="タスクを追加"
+          className="todo-input"
+          autoFocus
+        />
+        <button type="button" className="cancel">
+          X
+        </button>
+        {/* <button type="submit">Create</button> */}
       </form>
       <ul>
         <li>
