@@ -3,9 +3,12 @@
   --color-secondary: white;
 }
 
-* {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 ul {
@@ -17,7 +20,7 @@ ul {
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .todo-filter {
@@ -88,10 +91,93 @@ form {
 }
 
 .todo-input + .cancel {
-  width: 18px;
-  height: 18px;
-  transform: translateX(-300%);
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  transform: translateX(-200%);
   border: none;
   background: transparent;
   appearance: none;
+  cursor: pointer;
+}
+
+.cancel:hover {
+  opacity: 0.6;
+}
+
+/* タスクアイテム */
+.todo-list {
+  display: grid;
+  gap: 30px;
+  padding-top: 20px;
+}
+
+.todo-list li {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+}
+
+.todo-list li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  border: 1px solid black;
+  border-radius: 50px;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.todo-list li .toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 5px;
+  height: 12px;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.todo-list li .toggle:checked::after {
+  opacity: 1;
+}
+
+.todo-list li .todo-value {
+  width: 100%;
+  padding: 15px 5px;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(67, 67, 67, 0.586);
+  pointer-events: none;
+  position: relative;
+}
+
+.todo-menu {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.todo-menu button {
+  background: transparent;
+  border: none;
+  width: 26px;
+  height: 26px;
+  font-size: 26px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.todo-menu button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.toggle:checked + .todo-value {
+  color: rgba(0, 0, 0, 0.2);
 }

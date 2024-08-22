@@ -1,3 +1,5 @@
+import { MdDelete, MdModeEdit } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
 import "./App.css";
 
 const App = () => {
@@ -43,20 +45,35 @@ const App = () => {
           autoFocus
         />
         <button type="button" className="cancel">
-          X
+          <TiDelete />
         </button>
-        {/* <button type="submit">Create</button> */}
       </form>
-      <ul>
+
+      <ul className="todo-list">
         <li>
-          <input type="checkbox" />
-          <input type="text" value="買い物" />
-          <button>X</button>
+          <input type="checkbox" className="toggle" />
+          <input type="text" value="買い物" className="todo-value" />
+          <div className="todo-menu">
+            <button>
+              <MdModeEdit />
+            </button>
+            <button>
+              <MdDelete />
+            </button>
+          </div>
         </li>
+
         <li>
-          <input type="checkbox" />
-          <input type="text" value="運動" />
-          <button>X</button>
+          <input type="checkbox" className="toggle" />
+          <input type="text" value="買い物" className="todo-value" />
+          <div className="todo-menu">
+            <button>
+              <MdModeEdit />
+            </button>
+            <button>
+              <MdDelete />
+            </button>
+          </div>
         </li>
       </ul>
     </div>
