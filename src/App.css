@@ -155,8 +155,7 @@ form {
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(67, 67, 67, 0.586);
-  pointer-events: none;
-  position: relative;
+  outline: none;
 }
 
 .todo-menu {
