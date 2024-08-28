@@ -1,83 +1,40 @@
-import { useRef, useState } from "react";
-import { MdDelete, MdModeEdit } from "react-icons/md";
-import { TiDelete } from "react-icons/ti";
 import "./App.css";
-import { FilterStatus } from "./types/filterStatus";
-import { Todo } from "./types/todo";
+import useTodos from "./hooks/useTodos";
+import TodoCreate from "./todo/TodoCreate";
+import TodoFilter from "./todo/TodoFilter";
+import TodoItem from "./todo/TodoItem";
 
 const App = () => {
-  const [text, setText] = useState("");
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [filter, setFilter] = useState<FilterStatus>("all");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setText(e.target.value);
-  };
-
-  const handleClick = () => {
-    setText("");
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!text) return;
-
-    const newTodo: Todo = {
-      id: new Date().getTime(),
-      value: text,
-      completed: false,
-    };
-    setTodos((todos) => [newTodo, ...todos]);
-    setText("");
-  };
-
-  const handleCompleted = (target: Todo) => {
-    setTodos((todos) => {
-      const newTodos = todos.map((todo) => {
-        if (todo === target) {
-          return { ...todo, completed: !todo.completed };
-        }
-        return todo;
-      });
-      return newTodos;
-    });
-  };
-
-  const handleEdit = (target: Todo, value: string) => {
-    setTodos((todos) => {
-      const newTodos = todos.map((todo) => {
-        if (todo === target) {
-          return { ...todo, value };
-        }
-        return todo;
-      });
-      return newTodos;
-    });
-  };
-
-  const handleDeleted = (target: Todo) => {
-    setTodos((todos) => {
-      return todos.filter((todo) => todo !== target);
-    });
-  };
-
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(e.target.value as FilterStatus);
-  };
-
-  const filteredTodos = {
-    all: todos,
-    completed: todos.filter((todo) => todo.completed),
-    incompleted: todos.filter((todo) => !todo.completed),
-  } as const satisfies {
-    [key in FilterStatus]: Todo[];
-  };
+  const todos = useTodos();
 
   return (
     <div className="container">
       <h1>Todo</h1>
+
+      <TodoCreate createTodo={todos.create} />
+      <TodoFilter onSetFilter={todos.onSetFilter} />
+      {todos.getFilteredTodos().map((todo) => (
+        <TodoItem
+          key={todo.id}
+          {...todo}
+          onToggleCompleted={todos.toggle}
+          onRemove={todos.remove}
+        />
+      ))}
+
+      {/* <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          onChange={handleChange}
+          value={text}
+          placeholder="タスクを追加"
+          className="todo-input"
+          autoFocus
+        />
+        <button type="button" onClick={handleClick} className="cancel">
+          <TiDelete />
+        </button>
+      </form>
 
       <div className="todo-filter">
         <label htmlFor="all" className="my-radio">
@@ -117,20 +74,6 @@ const App = () => {
         </label>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={handleChange}
-          value={text}
-          placeholder="タスクを追加"
-          className="todo-input"
-          autoFocus
-        />
-        <button type="button" onClick={handleClick} className="cancel">
-          <TiDelete />
-        </button>
-      </form>
-
       <ul className="todo-list">
         {filteredTodos[filter].map((todo) => (
           <li key={todo.id}>
@@ -164,7 +107,7 @@ const App = () => {
             </div>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
